@@ -6,18 +6,17 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id })
+                const token = signToken(context.user);
+                console.log(token);
+                const userData = await User.findOne({ _id: context.user })
                     .select('-__v -password')
                     .populate('Book')
-                return userData;
+                return { userData, token };
             }
             throw new AuthenticationError('Not logged in');
         },
         users: async () => {
             return User.find()
-        },
-        user: async (parent, { username }) => {
-            return User.findOne({ username })
         }
     },
     Mutation: {
@@ -44,10 +43,11 @@ const resolvers = {
             return { token, user };
         },
         saveBooks: async (parent, { bookData }, context) => {
+            console.log(context.user);
             if (context.user) {
                 const updateUser = await User.findByIdAndUpdate(
                     { _id: context.user._id },
-                    { $push: { saveBooks: bookData } },
+                    { $push: { savedBooks: bookData } },
                     { new: true }
                 )
                 return updateUser;
