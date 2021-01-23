@@ -11,7 +11,8 @@ const resolvers = {
                 const userData = await User.findOne({ _id: context.user })
                     .select('-__v -password')
                     .populate('Book')
-                return { userData, token };
+                // return { userData, token };
+                return userData;
             }
             throw new AuthenticationError('Not logged in');
         },
@@ -57,7 +58,7 @@ const resolvers = {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { savedBooks: bookId } },
+                    { $pull: { savedBooks: { bookId } } },
                     { new: true }
                 );
                 return updatedUser;
