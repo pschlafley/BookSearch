@@ -4,9 +4,9 @@
 
 ## Description
 
-This is a MERN stack application, where users can create and account, login, and search for books. The books are provided by the google books api. The user an also save a book to their account and that book will show up on their "profile" page, where they can see all of their saved books.
+Book Search is a full-stack MERN app that uses the Google Books API to let you search for any book title and returns results for the title searched. The search results are displayed with the book's title, image and description. You can signup to create a username and save your favorite books to display in your saved books page. The saved books are persistent and will still show up when you log out and return to the app.
 
-This application uses MongoDB, Graphql for the backend, and React for the front end.
+This app was refactored from an existing, fully functional MERN app setup with a RESTful API. I refactored the existing RESTful API to a GraphQL API using Apollo Server with GraphQL queries and mutations along with MongoDB, Express, React and Node. Refactoring to a GraphQL API allows for less calls to the server and avoids overfetching of data.
 
 ## Table of Contents
 
